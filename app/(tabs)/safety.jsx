@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Ensure FontAwesome is installed
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 
 const safetyReports = [
   {
@@ -66,9 +66,15 @@ const formatDate = (date) => {
   });
 };
 
+const reportIncident = () => {
+
+}
+
 const SafetyMap = () => {
   return (
     <View style={styles.container}>
+
+      {/* map */}
       <MapView
         style={styles.map}
         initialRegion={{
@@ -102,6 +108,7 @@ const SafetyMap = () => {
         ))}
       </MapView>
 
+      {/* key */}
       <View style={styles.keyContainer}>
         <Text style={styles.keyTitle}>Safety Report Key</Text>
         <View style={styles.keyItem}>
@@ -123,6 +130,11 @@ const SafetyMap = () => {
           <Text style={styles.keyText}>Harassment</Text>
         </View>
       </View>
+
+      {/* report button */}
+      <TouchableOpacity style={styles.reportButton} onPress={() => reportIncident()}>
+        <Icon name='thumb-tack' size={30} color="white" />
+      </TouchableOpacity>
 
     </View>
   );
@@ -207,10 +219,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 10,
   },
-  
+
   keyText: {
     fontSize: 14,
   },
+
+  reportButton: {
+    position: 'absolute',
+    bottom: 100,
+    right: 20,
+    width: 50,
+    height: 50,
+    backgroundColor: '#1A0A3A',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 export default SafetyMap;
