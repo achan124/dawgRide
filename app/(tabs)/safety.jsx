@@ -141,7 +141,7 @@ const SafetyMap = () => {
         style={styles.map}
         initialRegion={{
           latitude: 47.655,
-          longitude: -122.308,
+          longitude: -122.309,
           latitudeDelta: 0.02,
           longitudeDelta: 0.02,
         }}
@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
   },
 
   dropdownMenu: {
-    width: '80%',
+    width: '47%',
     marginTop: 8,
   },
 
