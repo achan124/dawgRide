@@ -95,7 +95,7 @@ const NightRideContent = () => {
           title={stop.name}
           description={`Stop Number: ${stop.number}`}
           >
-            <Icon name="map-marker" size={30} color="black" />
+            <Icon name="circle" size={15} color="black" />
           </Marker>
         ))}
 
@@ -107,7 +107,7 @@ const NightRideContent = () => {
           title={`${shuttle.route ? shuttle.route : 'Shuttle'}`}
           description={`Next Stop: ${shuttle.nextStop} | ETA: ${shuttle.eta} min | Occupancy: ${shuttle.occupancy}`}
           >
-            <Icon name="bus" size={30} color="purple" />
+            <Icon name="bus" size={30} color="#5A4A7B" />
           </Marker>
         ))}
       </MapView>
@@ -132,10 +132,10 @@ const SafeTripContent = () => {
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 47.655,
+          latitude: 47.6565,
           longitude: -122.308,
-          latitudeDelta: 0.02,
-          longitudeDelta: 0.02,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
         }}
       >
 
@@ -210,6 +210,6 @@ const styles = StyleSheet.create({
 
   map: {
     width: '100%',
-    height: 610,
+    height: 605,
   },
 })
