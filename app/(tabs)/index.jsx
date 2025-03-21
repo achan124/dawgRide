@@ -2,9 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useFonts, BebasNeue_400Regular } from "@expo-google-fonts/bebas-neue";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
 
 const App = () => {
+  const [fontsLoaded] = useFonts({ BebasNeue_400Regular });
   const [activeTab, setActiveTab] = useState('nightride'); 
+
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync();
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) return null;
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -163,10 +174,11 @@ const styles = StyleSheet.create({
   },
 
   heading1: {
+    fontFamily: "BebasNeue_400Regular",
     color: 'white',
-    fontSize: 22,
+    fontSize: 26,
     textAlign: 'center',
-    marginBottom: 20,
+    marginTop: 10,
   },
   
   tabContainer: {

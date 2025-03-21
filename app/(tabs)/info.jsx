@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Collapsible from 'react-native-collapsible';
+import { useFonts, BebasNeue_400Regular } from "@expo-google-fonts/bebas-neue";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
 
 const FAQ_DATA = {
   general: [
@@ -78,12 +82,19 @@ const FAQItem = ({ question, answer, isActive, onPress }) => (
 );
 
 const App = () => {
+  const [fontsLoaded] = useFonts({ BebasNeue_400Regular });
   const [activeTab, setActiveTab] = useState('general');
   const [activeIndexes, setActiveIndexes] = useState({
     general: null,
     nightride: null,
     safetrip: null,
   });
+
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync();
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) return null;
 
   const handlePress = (tab, index) => {
     setActiveIndexes((prevIndexes) => ({
@@ -255,10 +266,11 @@ const styles = StyleSheet.create({
   },
 
   heading1: {
+    fontFamily: "BebasNeue_400Regular",
     color: 'white',
-    fontSize: 22,
+    fontSize: 26,
     textAlign: 'center',
-    marginBottom: 20,
+    marginTop: 10,
   },
 
   tabContainer: {

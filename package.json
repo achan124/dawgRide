@@ -15,6 +15,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo-google-fonts/bebas-neue": "^0.2.3",
     "@expo/vector-icons": "^14.0.2",
     "@here/maps-api-for-javascript": "^1.63.0",
     "@react-google-maps/api": "^2.20.6",

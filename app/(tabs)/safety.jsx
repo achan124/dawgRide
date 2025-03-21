@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput, ScrollView, Button } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { useFonts, BebasNeue_400Regular } from "@expo-google-fonts/bebas-neue";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
 
 const safetyReports = [
   {
@@ -68,6 +72,7 @@ const formatDate = (date) => {
 };
 
 const SafetyMap = () => {
+  const [fontsLoaded] = useFonts({ BebasNeue_400Regular });
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [isSelectingLocation, setIsSelectingLocation] = useState(false);
@@ -75,6 +80,12 @@ const SafetyMap = () => {
   const [description, setDescription] = useState('');
   const [studentID, setStudentID] = useState('');
   const [reports, setReports] = useState(safetyReports);
+
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync();
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) return null;
 
   const issueTypes = [
     { label: 'Select Issue Type', value: '' },
@@ -258,10 +269,12 @@ const styles = StyleSheet.create({
   },
 
   heading1: {
+    fontFamily: "BebasNeue_400Regular",
     color: 'white',
-    fontSize: 22,
+    fontSize: 26,
     textAlign: 'center',
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 10,
   },
 
   map: {
