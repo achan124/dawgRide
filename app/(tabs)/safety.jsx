@@ -27,7 +27,6 @@ const safetyReports = [
   },
 ];
 
-// Helper function to get the appropriate icon for a report type
 const GetReportIcon = ({ type }) => {
   let iconName;
   let color;
@@ -57,7 +56,6 @@ const GetReportIcon = ({ type }) => {
   );
 };
 
-// Helper function to format the date
 const formatDate = (date) => {
   return date.toLocaleString('en-US', {
     month: 'short',
@@ -70,53 +68,82 @@ const formatDate = (date) => {
 
 const SafetyMap = () => {
   return (
-    <MapView
-      style={styles.map}
-      initialRegion={{
-        latitude: 47.655,
-        longitude: -122.308,
-        latitudeDelta: 0.02,
-        longitudeDelta: 0.02,
-      }}
-    >
-      {safetyReports.map((report) => (
-        <Marker
-          key={`report-${report.id}`}
-          coordinate={{
-            latitude: report.position[0],
-            longitude: report.position[1],
-          }}
-        >
-          <GetReportIcon type={report.type} />
-          <Callout tooltip>
-            <View style={styles.calloutContainer}>
-              <Text style={styles.calloutTitle}>
-                {report.type.charAt(0).toUpperCase() + report.type.slice(1)} Issue
-              </Text>
-              <Text style={styles.calloutDescription}>{report.description}</Text>
-              <Text style={styles.calloutTime}>
-                Reported: {formatDate(report.timestamp)}
-              </Text>
-            </View>
-          </Callout>
-        </Marker>
-      ))}
-    </MapView>
+    <View style={styles.container}>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: 47.655,
+          longitude: -122.308,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02,
+        }}
+      >
+        {safetyReports.map((report) => (
+          <Marker
+            key={`report-${report.id}`}
+            coordinate={{
+              latitude: report.position[0],
+              longitude: report.position[1],
+            }}
+          >
+            <GetReportIcon type={report.type} />
+            <Callout tooltip>
+              <View style={styles.calloutContainer}>
+                <Text style={styles.calloutTitle}>
+                  {report.type.charAt(0).toUpperCase() + report.type.slice(1)} Issue
+                </Text>
+                <Text style={styles.calloutDescription}>{report.description}</Text>
+                <Text style={styles.calloutTime}>
+                  Reported: {formatDate(report.timestamp)}
+                </Text>
+              </View>
+            </Callout>
+          </Marker>
+        ))}
+      </MapView>
+
+      <View style={styles.keyContainer}>
+        <Text style={styles.keyTitle}>Safety Report Key</Text>
+        <View style={styles.keyItem}>
+          <View style={[styles.keyIcon, { backgroundColor: '#FFC107' }]}>
+            <Icon name="lightbulb-o" size={16} color="white" />
+          </View>
+          <Text style={styles.keyText}>Lighting Issue</Text>
+        </View>
+        <View style={styles.keyItem}>
+          <View style={[styles.keyIcon, { backgroundColor: '#2196F3' }]}>
+            <Icon name="eye" size={16} color="white" />
+          </View>
+          <Text style={styles.keyText}>Suspicious Activity</Text>
+        </View>
+        <View style={styles.keyItem}>
+          <View style={[styles.keyIcon, { backgroundColor: '#F44336' }]}>
+            <Icon name="user" size={16} color="white" />
+          </View>
+          <Text style={styles.keyText}>Harassment</Text>
+        </View>
+      </View>
+
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
   map: {
     flex: 1,
   },
 
   iconContainer: {
-    width: 30, // Size of the circle
-    height: 30, // Size of the circle
-    borderRadius: 15, // Half of width/height to make it circular
+    width: 30, 
+    height: 30, 
+    borderRadius: 15, 
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFC107', // Default color (will be overridden by dynamic color)
+    backgroundColor: '#FFC107', 
   },
 
   calloutContainer: {
@@ -142,6 +169,47 @@ const styles = StyleSheet.create({
   calloutTime: {
     fontSize: 12,
     color: '#666',
+  },
+
+  keyContainer: {
+    position: 'absolute',
+    top: 75,
+    left: 20,
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
+  },
+
+  keyTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+
+  keyItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+
+  keyIcon: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  
+  keyText: {
+    fontSize: 14,
   },
 });
 
